@@ -32,26 +32,26 @@ export function SubscriptionModal({ onClose }: SubscriptionModalProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto"
+            className="fixed inset-0 bg-background/95 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-y-auto"
         >
             <motion.div
                 initial={{ scale: 0.9, opacity: 0, y: 20 }}
                 animate={{ scale: 1, opacity: 1, y: 0 }}
                 exit={{ scale: 0.9, opacity: 0, y: 20 }}
                 transition={{ type: "spring", duration: 0.5 }}
-                className="w-full max-w-4xl"
+                className="w-full max-w-2xl"
             >
-                <Card className="relative bg-card border border-border shadow-2xl overflow-hidden p-0 flex flex-row">
-                    <Button
-                        onClick={onClose}
-                        variant="ghost"
-                        size="icon"
-                        className="absolute top-4 right-4 text-foreground hover:bg-muted"
-                    >
-                        <X className="h-5 w-5" />
-                    </Button>
+                <Card className="relative bg-card border border-border shadow-2xl overflow-hidden p-0">
                     {/* Header with gradient */}
                     <div className="relative bg-gradient-to-br from-primary/20 via-accent/10 to-transparent p-8 border-b border-border">
+                        <Button
+                            onClick={onClose}
+                            variant="ghost"
+                            size="icon"
+                            className="absolute top-4 right-4 text-foreground hover:bg-muted"
+                        >
+                            <X className="h-5 w-5" />
+                        </Button>
 
                         <motion.div
                             initial={{ scale: 0 }}
@@ -64,10 +64,11 @@ export function SubscriptionModal({ onClose }: SubscriptionModalProps) {
 
                         <h2 className="text-3xl font-bold text-foreground mb-2 text-balance">Upgrade to CalcPro AI Premium</h2>
                         <p className="text-muted-foreground text-balance">Unlock real-time calculations and advanced features</p>
+                    </div>
 
-
+                    <div className="p-8">
                         {/* Features */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-8">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
                             {[
                                 { icon: Zap, title: "Instant Results", desc: "Real-time calculations" },
                                 { icon: Sparkles, title: "AI-Powered", desc: "Quantum computing" },
@@ -100,16 +101,14 @@ export function SubscriptionModal({ onClose }: SubscriptionModalProps) {
                             </div>
                             <p className="text-sm text-muted-foreground">Billed annually at $1,188/year</p>
                         </motion.div>
-                    </div>
 
-                    <div className="flex flex-col justify-between p-8 mt-4">
                         {/* Payment Form */}
                         <motion.form
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.7 }}
                             onSubmit={handleSubmit}
-                            className="space-y-4 flex-1"
+                            className="space-y-4"
                         >
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="space-y-2">
@@ -118,7 +117,7 @@ export function SubscriptionModal({ onClose }: SubscriptionModalProps) {
                                     </Label>
                                     <Input
                                         id="firstName"
-                                        placeholder="Brad"
+                                        placeholder="John"
                                         required
                                         className="bg-background border-border text-foreground"
                                     />
@@ -129,7 +128,7 @@ export function SubscriptionModal({ onClose }: SubscriptionModalProps) {
                                     </Label>
                                     <Input
                                         id="lastName"
-                                        placeholder="Moyetones"
+                                        placeholder="Doe"
                                         required
                                         className="bg-background border-border text-foreground"
                                     />
@@ -143,7 +142,7 @@ export function SubscriptionModal({ onClose }: SubscriptionModalProps) {
                                 <Input
                                     id="email"
                                     type="email"
-                                    placeholder="brad@example.com"
+                                    placeholder="john@example.com"
                                     required
                                     className="bg-background border-border text-foreground"
                                 />
@@ -185,12 +184,9 @@ export function SubscriptionModal({ onClose }: SubscriptionModalProps) {
                                     />
                                 </div>
                             </div>
-                        </motion.form>
 
-                        <div className="mt-auto w-fit space-y-4">
                             <Button
                                 type="submit"
-                                onClick={handleSubmit}
                                 disabled={isProcessing}
                                 className="w-full h-12 text-base font-semibold bg-primary text-primary-foreground hover:bg-primary/90"
                             >
@@ -209,7 +205,7 @@ export function SubscriptionModal({ onClose }: SubscriptionModalProps) {
                             <p className="text-xs text-center text-muted-foreground">
                                 By subscribing, you agree to our Terms of Service and Privacy Policy
                             </p>
-                        </div>
+                        </motion.form>
                     </div>
                 </Card>
             </motion.div>

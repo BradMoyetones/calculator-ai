@@ -4,6 +4,27 @@ import { Calculator } from "@/components/Calculator"
 import { LoadingModal } from "@/components/LoadingModal"
 import { SubscriptionModal } from "@/components/SubscriptionModal"
 
+const backgroundStyle = `
+    .bg-pattern {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+        linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+        background-size: 20px 20px;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .content {
+        position: relative;
+        z-index: 2;
+    }
+`
+
 export default function HomePage() {
     const [isLoading, setIsLoading] = useState(false)
     const [showSubscription, setShowSubscription] = useState(false)
@@ -19,51 +40,62 @@ export default function HomePage() {
     }
 
     return (
-        <div className="min-h-screen bg-background flex items-center justify-center p-4">
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-                className="w-full max-w-md"
+        <>
+            <div className="bg-pattern" />
+            {/* 👇 Inyectamos el CSS */}
+            <style>{backgroundStyle}</style>
+            <div 
+                className="min-h-screen bg-background flex items-center justify-center p-4 relative z-10"
+                style={{
+                    background: "radial-gradient(circle at center, color-mix(in oklch, var(--primary) 30%, transparent), #000000)"
+                }}
             >
-                <div className="text-center mb-8">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.2, duration: 0.5 }}
-                        className="inline-flex items-center gap-2 mb-4"
-                    >
-                        <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-                        <span className="text-xs font-mono text-muted-foreground uppercase tracking-wider">Enterprise Edition</span>
-                    </motion.div>
 
-                    <motion.h1
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.3, duration: 0.5 }}
-                        className="text-4xl font-bold text-foreground mb-2 text-balance"
-                    >
-                        CalcPro AI
-                    </motion.h1>
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
+                    className="w-full max-w-md"
+                >
+                    <div className="text-center mb-8">
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 0.2, duration: 0.5 }}
+                            className="inline-flex items-center gap-2 mb-4"
+                        >
+                            <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
+                            <span className="text-xs font-mono text-muted-foreground uppercase tracking-wider">Enterprise Edition</span>
+                        </motion.div>
 
-                    <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.4, duration: 0.5 }}
-                        className="text-muted-foreground text-sm"
-                    >
-                        Next-generation computational intelligence
-                    </motion.p>
-                </div>
+                        <motion.h1
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.3, duration: 0.5 }}
+                            className="text-4xl font-bold text-foreground mb-2 text-balance"
+                        >
+                            CalcPro AI
+                        </motion.h1>
 
-                <Calculator onCalculate={handleCalculation} isPremium={false} />
-            </motion.div>
+                        <motion.p
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.4, duration: 0.5 }}
+                            className="text-muted-foreground text-sm"
+                        >
+                            Next-generation computational intelligence
+                        </motion.p>
+                    </div>
 
-            <AnimatePresence>{isLoading && <LoadingModal />}</AnimatePresence>
+                    <Calculator onCalculate={handleCalculation} isPremium={false} />
+                </motion.div>
 
-            <AnimatePresence>
-                {showSubscription && <SubscriptionModal onClose={() => setShowSubscription(false)} />}
-            </AnimatePresence>
-        </div>
+                <AnimatePresence>{isLoading && <LoadingModal />}</AnimatePresence>
+
+                <AnimatePresence>
+                    {showSubscription && <SubscriptionModal onClose={() => setShowSubscription(false)} />}
+                </AnimatePresence>
+            </div>
+        </>
     )
 }
