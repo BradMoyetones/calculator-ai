@@ -32,7 +32,7 @@ export function SubscriptionModal({ onClose }: SubscriptionModalProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto"
+            className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
         >
             <motion.div
                 initial={{ scale: 0.9, opacity: 0, y: 20 }}
@@ -41,7 +41,7 @@ export function SubscriptionModal({ onClose }: SubscriptionModalProps) {
                 transition={{ type: "spring", duration: 0.5 }}
                 className="w-full max-w-4xl"
             >
-                <Card className="relative bg-card border border-border shadow-2xl overflow-hidden p-0 flex flex-col md:flex-row">
+                <Card className="relative bg-card border border-border shadow-2xl overflow-hidden p-0 flex flex-col md:flex-row max-h-[95vh] overflow-y-auto">
                     <Button
                         onClick={onClose}
                         variant="ghost"
@@ -102,14 +102,14 @@ export function SubscriptionModal({ onClose }: SubscriptionModalProps) {
                         </motion.div>
                     </div>
 
-                    <div className="flex flex-col justify-between p-8 mt-4">
+                    <div className="flex flex-col justify-between p-8 md:mt-4">
                         {/* Payment Form */}
                         <motion.form
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.7 }}
                             onSubmit={handleSubmit}
-                            className="space-y-4 flex-1"
+                            className="space-y-4 flex-1 mb-4"
                         >
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="space-y-2">
@@ -187,7 +187,7 @@ export function SubscriptionModal({ onClose }: SubscriptionModalProps) {
                             </div>
                         </motion.form>
 
-                        <div className="mt-auto w-fit space-y-4">
+                        <div className="mt-auto space-y-4">
                             <Button
                                 type="submit"
                                 onClick={handleSubmit}
