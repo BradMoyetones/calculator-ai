@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card } from "@/components/ui/card"
+import GlobeScene from "@/pages/Home/globe/interactive-globe"
 
 interface SubscriptionModalProps {
     onClose: () => void
@@ -41,7 +42,8 @@ export function SubscriptionModal({ onClose }: SubscriptionModalProps) {
                 transition={{ type: "spring", duration: 0.5 }}
                 className="w-full max-w-4xl"
             >
-                <Card className="relative bg-card border border-border shadow-2xl overflow-hidden p-0 flex flex-col md:flex-row max-h-[95vh] overflow-y-auto">
+                <Card className="relative bg-background border border-border shadow-2xl overflow-hidden p-0 max-h-[95vh] overflow-y-auto">
+                    <div className="z-50 flex flex-col md:flex-row">
                     <Button
                         onClick={onClose}
                         variant="ghost"
@@ -102,7 +104,7 @@ export function SubscriptionModal({ onClose }: SubscriptionModalProps) {
                         </motion.div>
                     </div>
 
-                    <div className="flex flex-col justify-between p-8 md:mt-4">
+                    <div className="flex flex-col justify-between p-8 md:pt-12">
                         {/* Payment Form */}
                         <motion.form
                             initial={{ opacity: 0, y: 20 }}
@@ -187,7 +189,13 @@ export function SubscriptionModal({ onClose }: SubscriptionModalProps) {
                             </div>
                         </motion.form>
 
-                        <div className="mt-auto space-y-4">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 1 }}
+                            onSubmit={handleSubmit}
+                            className="mt-auto space-y-4"
+                        >
                             <Button
                                 type="submit"
                                 onClick={handleSubmit}
@@ -209,8 +217,16 @@ export function SubscriptionModal({ onClose }: SubscriptionModalProps) {
                             <p className="text-xs text-center text-muted-foreground">
                                 By subscribing, you agree to our Terms of Service and Privacy Policy
                             </p>
-                        </div>
+                        </motion.div>
                     </div>
+                    </div>
+                    <div className="absolute inset-0 z-0 opacity-60">
+                        <GlobeScene />
+                        <div
+                            className="absolute inset-0 pointer-events-none bg-[linear-gradient(to_bottom,transparent_90%,var(--background)_100%)] flex md:hidden"
+                        />
+                    </div>
+
                 </Card>
             </motion.div>
         </motion.div>
