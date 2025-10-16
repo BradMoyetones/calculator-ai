@@ -46,7 +46,7 @@ export function SubscriptionModal({ onClose }: SubscriptionModalProps) {
                         onClick={onClose}
                         variant="ghost"
                         size="icon"
-                        className="absolute top-4 right-4 text-foreground hover:bg-muted"
+                        className="absolute top-4 right-4 text-foreground hover:bg-muted z-50"
                     >
                         <X className="h-5 w-5" />
                     </Button>
