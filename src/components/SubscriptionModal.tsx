@@ -32,7 +32,7 @@ export function SubscriptionModal({ onClose }: SubscriptionModalProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm p-4 overflow-hidden"
+            className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto"
         >
             <motion.div
                 initial={{ scale: 0.9, opacity: 0, y: 20 }}
@@ -41,7 +41,7 @@ export function SubscriptionModal({ onClose }: SubscriptionModalProps) {
                 transition={{ type: "spring", duration: 0.5 }}
                 className="w-full max-w-4xl"
             >
-                <Card className="relative bg-card border border-border shadow-2xl overflow-hidden p-0 flex flex-col md:flex-row">
+                <Card className="relative bg-card border border-border shadow-2xl overflow-hidden p-0 flex flex-row">
                     <Button
                         onClick={onClose}
                         variant="ghost"
