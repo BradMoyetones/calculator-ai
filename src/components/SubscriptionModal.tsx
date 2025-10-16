@@ -41,7 +41,7 @@ export function SubscriptionModal({ onClose }: SubscriptionModalProps) {
                 transition={{ type: "spring", duration: 0.5 }}
                 className="w-full max-w-4xl"
             >
-                <Card className="relative bg-card border border-border shadow-2xl overflow-hidden p-0 flex flex-row">
+                <Card className="relative bg-card border border-border shadow-2xl overflow-hidden p-0 flex flex-col md:flex-row">
                     <Button
                         onClick={onClose}
                         variant="ghost"
