@@ -28,6 +28,7 @@ const backgroundStyle = `
 export default function HomePage() {
     const [isLoading, setIsLoading] = useState(false)
     const [showSubscription, setShowSubscription] = useState(false)
+    const [isPremium] = useState(false)
 
     const handleCalculation = () => {
         setIsLoading(true)
@@ -87,7 +88,7 @@ export default function HomePage() {
                         </motion.p>
                     </div>
 
-                    <Calculator onCalculate={handleCalculation} isPremium={false} />
+                    <Calculator onCalculate={handleCalculation} isPremium={isPremium} />
                 </motion.div>
 
                 <AnimatePresence>{isLoading && <LoadingModal />}</AnimatePresence>
