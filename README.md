@@ -38,7 +38,10 @@
 
 ```bash
 # Clonar el proyecto
-git clone [tu-repo]
+git clone https://github.com/BradMoyetones/calculator-ai.git
+
+# Entrar a la carpeta del proyecto
+cd calculator-ai
 
 # Instalar dependencias
 npm install
