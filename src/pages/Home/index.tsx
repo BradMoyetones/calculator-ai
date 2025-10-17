@@ -4,6 +4,7 @@ import { Calculator } from "@/components/Calculator"
 import { LoadingModal } from "@/components/LoadingModal"
 import { SubscriptionModal } from "@/components/SubscriptionModal"
 import { SuccessModal } from "@/components/SuccessModal"
+import { Github, Instagram } from "lucide-react"
 
 const backgroundStyle = `
     .bg-pattern {
@@ -55,6 +56,17 @@ export default function HomePage() {
 
     return (
         <>
+            <div className="fixed top-0 left-0 right-0 p-4 z-20 flex justify-end gap-4">
+                <a href="https://www.instagram.com/its.bradn" title="Instagram" className="hover:text-primary text-muted-foreground transition-colors">
+                    <Instagram />
+                    <span className="sr-only">Instagram</span>
+                </a>
+                <a href="https://github.com/BradMoyetones/calculator-ai" title="Github" className="hover:text-primary text-muted-foreground transition-colors">
+                    <Github />
+                    <span className="sr-only">Github</span>
+                </a>
+            </div>
+
             <div className="bg-pattern" />
             {/* 👇 Inyectamos el CSS */}
             <style>{backgroundStyle}</style>
