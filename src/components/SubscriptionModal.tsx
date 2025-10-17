@@ -13,18 +13,18 @@ import GlobeScene from "@/pages/Home/globe/interactive-globe"
 
 interface SubscriptionModalProps {
     onClose: () => void
+    onSuccess: () => void
 }
 
-export function SubscriptionModal({ onClose }: SubscriptionModalProps) {
+export function SubscriptionModal({ onClose, onSuccess }: SubscriptionModalProps) {
     const [isProcessing, setIsProcessing] = useState(false)
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         setIsProcessing(true)
-        // Simulate processing
         setTimeout(() => {
-            alert("¡Gracias por intentar suscribirte! 😂 (Esto es solo meme)")
-            onClose()
+            setIsProcessing(false)
+            onSuccess()
         }, 2000)
     }
 

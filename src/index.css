@@ -57,6 +57,9 @@
       opacity: 0;
     }
   }
+
+  --animate-spin-slow: spin 6s linear infinite;
+
 }
 
 :root {
@@ -135,4 +138,8 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.animate-spin-slow {
+  animation: spin 4s linear infinite;
 }

@@ -13,7 +13,8 @@ interface CalculatorProps {
 export function Calculator({ onCalculate, isPremium }: CalculatorProps) {
     const [display, setDisplay] = useState("0")
     const [equation, setEquation] = useState("")
-    const [result, setResult] = useState<number | null>(null)
+    const [waitingForOperand, setWaitingForOperand] = useState(false)
+    const [justCalculated, setJustCalculated] = useState(false)
 
     const buttons = [
         ["C", "±", "%", "÷"],
@@ -39,17 +40,31 @@ export function Calculator({ onCalculate, isPremium }: CalculatorProps) {
 
     const handleButtonClick = (value: string) => {
         if (value === "=") {
-            const fullExpression = equation + display
-            const calculatedResult = isPremium ? calculateResult(fullExpression) : null
-            setResult(calculatedResult)
+            if (justCalculated || !equation) return
+            
             onCalculate()
+            if(!isPremium) return
+
+            const fullExpression = equation + display
+            const calculatedResult = calculateResult(fullExpression)
+
+            if (calculatedResult !== null) {
+                setEquation(fullExpression + " =")
+                setDisplay(calculatedResult.toString())
+            } else {
+                setEquation(fullExpression)
+            }
+            
+            setWaitingForOperand(true)
+            setJustCalculated(true)
             return
         }
 
         if (value === "C") {
             setDisplay("0")
             setEquation("")
-            setResult(null)
+            setWaitingForOperand(false)
+            setJustCalculated(false)
             return
         }
 
@@ -63,15 +78,42 @@ export function Calculator({ onCalculate, isPremium }: CalculatorProps) {
             return
         }
 
-        if (display === "0" && value !== ".") {
-            setDisplay(value)
-        } else {
-            setDisplay((prev) => prev + value)
+        if (["+", "-", "×", "÷"].includes(value)) {
+            if (justCalculated) {
+                setEquation(display + " " + value + " ")
+                setWaitingForOperand(true)
+                setJustCalculated(false)
+                return
+            }
+
+            if (waitingForOperand) {
+                setEquation((prev) => prev.slice(0, -2) + value + " ")
+                return
+            }
+
+            setEquation((prev) => prev + display + " " + value + " ")
+            setWaitingForOperand(true)
+            return
         }
 
-        if (["+", "-", "×", "÷"].includes(value)) {
-            setEquation((prev) => prev + display + " " + value + " ")
-            setDisplay("0")
+        if (justCalculated) {
+            setDisplay(value === "." ? "0." : value)
+            setEquation("")
+            setWaitingForOperand(false)
+            setJustCalculated(false)
+            return
+        }
+
+        if (waitingForOperand || display === "0") {
+            if (value === "." && display === "0") {
+                setDisplay("0.")
+            } else {
+                setDisplay(value)
+            }
+            setWaitingForOperand(false)
+        } else {
+            if (value === "." && display.includes(".")) return
+            setDisplay((prev) => prev + value)
         }
     }
 
@@ -91,9 +133,7 @@ export function Calculator({ onCalculate, isPremium }: CalculatorProps) {
                 className="mb-6"
             >
                 <div className="text-xs text-muted-foreground font-mono mb-1 h-4">{equation}</div>
-                <div className="text-5xl font-mono text-foreground text-right font-light tracking-tight">
-                    {result !== null ? result.toString() : display}
-                </div>
+                <div className="text-5xl font-mono text-foreground text-right font-light tracking-tight">{display}</div>
             </motion.div>
 
             <div className="space-y-3">

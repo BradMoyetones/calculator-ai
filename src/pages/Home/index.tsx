@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "motion/react"
 import { Calculator } from "@/components/Calculator"
 import { LoadingModal } from "@/components/LoadingModal"
 import { SubscriptionModal } from "@/components/SubscriptionModal"
+import { SuccessModal } from "@/components/SuccessModal"
 
 const backgroundStyle = `
     .bg-pattern {
@@ -28,16 +29,28 @@ const backgroundStyle = `
 export default function HomePage() {
     const [isLoading, setIsLoading] = useState(false)
     const [showSubscription, setShowSubscription] = useState(false)
-    const [isPremium] = useState(false)
+    const [showSuccess, setShowSuccess] = useState(false)
+    const [isPremium, setIsPremium] = useState(false)
 
     const handleCalculation = () => {
-        setIsLoading(true)
+        if (!isPremium) {
+            setIsLoading(true)
 
-        // Simulate "processing" the calculation
-        setTimeout(() => {
-            setIsLoading(false)
-            setShowSubscription(true)
-        }, 2500)
+            setTimeout(() => {
+                setIsLoading(false)
+                setShowSubscription(true)
+            }, 2500)
+        }
+    }
+
+    const handleSubscriptionSuccess = () => {
+        setShowSubscription(false)
+        setShowSuccess(true)
+    }
+
+    const handleSuccessClose = () => {
+        setShowSuccess(false)
+        setIsPremium(true)
     }
 
     return (
@@ -66,7 +79,9 @@ export default function HomePage() {
                             className="inline-flex items-center gap-2 mb-4"
                         >
                             <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-                            <span className="text-xs font-mono text-muted-foreground uppercase tracking-wider">Enterprise Edition</span>
+                            <span className="text-xs font-mono text-muted-foreground uppercase tracking-wider">
+                                {isPremium ? "Premium Edition" : "Enterprise Edition"}
+                            </span>
                         </motion.div>
 
                         <motion.h1
@@ -93,8 +108,16 @@ export default function HomePage() {
 
                 <AnimatePresence>{isLoading && <LoadingModal />}</AnimatePresence>
 
+                {/* Subscription detail modal */}
                 <AnimatePresence>
-                    {showSubscription && <SubscriptionModal onClose={() => setShowSubscription(false)} />}
+                    {showSubscription && (
+                        <SubscriptionModal onClose={() => setShowSubscription(false)} onSuccess={handleSubscriptionSuccess} />
+                    )}
+                </AnimatePresence>
+
+                {/* Success Payment */}
+                <AnimatePresence>
+                    {showSuccess && <SuccessModal onClose={handleSuccessClose} />}
                 </AnimatePresence>
             </div>
         </>
