@@ -2,22 +2,17 @@
 
 import { motion } from "motion/react"
 import { Loader2 } from "lucide-react"
+import { Dialog, DialogContent } from "@/components/ui/dialog"
 
-export function LoadingModal() {
+type Props = {
+    open: boolean
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export function LoadingModal({ open, setOpen }: Props) {
     return (
-        <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center"
-        >
-            <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.9, opacity: 0 }}
-                transition={{ type: "spring", duration: 0.5 }}
-                className="bg-card border border-border rounded-2xl p-8 shadow-2xl max-w-sm w-full mx-4"
-            >
+        <Dialog open={open} onOpenChange={setOpen}>
+            <DialogContent className="max-w-sm! w-full p-8">
                 <div className="flex flex-col items-center text-center space-y-4">
                     <motion.div
                         animate={{ rotate: 360 }}
@@ -42,14 +37,14 @@ export function LoadingModal() {
 
                     <div className="flex items-center gap-2 text-xs text-muted-foreground font-mono">
                         <motion.span
-                        animate={{ opacity: [1, 0.5, 1] }}
-                        transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
+                            animate={{ opacity: [1, 0.5, 1] }}
+                            transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
                         >
-                        Analyzing input data
+                            Analyzing input data
                         </motion.span>
                     </div>
                 </div>
-            </motion.div>
-        </motion.div>
+            </DialogContent>
+        </Dialog>
     )
 }

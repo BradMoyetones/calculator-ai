@@ -4,6 +4,7 @@ import { useState } from "react"
 import { motion } from "motion/react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
+import { Separator } from "./ui/separator"
 
 interface CalculatorProps {
     onCalculate: () => void,
@@ -119,8 +120,8 @@ export function Calculator({ onCalculate, isPremium }: CalculatorProps) {
 
     const getButtonStyle = (value: string) => {
         if (value === "=") return "bg-primary text-primary-foreground hover:bg-primary/90"
-        if (["+", "-", "×", "÷"].includes(value)) return "bg-accent text-accent-foreground hover:bg-accent/90"
-        if (["C", "±", "%"].includes(value)) return "bg-muted text-muted-foreground hover:bg-muted/80"
+        if (["+", "-", "×", "÷"].includes(value)) return "bg-muted text-muted-foreground hover:bg-muted/80"
+        if (["C", "±", "%"].includes(value)) return "bg-muted text-muted-foreground hover:bg-muted/80 border"
         return "bg-card text-card-foreground hover:bg-card/80 border border-border"
     }
 
@@ -165,15 +166,16 @@ export function Calculator({ onCalculate, isPremium }: CalculatorProps) {
                 ))}
             </div>
 
+            <Separator className="my-4" />
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.2 }}
-                className="mt-6 pt-6 border-t border-border/50 flex items-center justify-between text-xs text-muted-foreground"
+                className="flex items-center justify-between text-xs text-muted-foreground"
             >
-                <span className="font-mono">v2.4.1</span>
+                <span className="font-mono">v2.4.2</span>
                 <span className="flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse" />
                     Cloud Sync Active
                 </span>
             </motion.div>

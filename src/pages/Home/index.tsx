@@ -4,7 +4,9 @@ import { Calculator } from "@/components/Calculator"
 import { LoadingModal } from "@/components/LoadingModal"
 import { SubscriptionModal } from "@/components/SubscriptionModal"
 import { SuccessModal } from "@/components/SuccessModal"
-import { Github, Instagram } from "lucide-react"
+import { Github, Instagram, Moon, Sun } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { useTheme } from "next-themes"
 
 const backgroundStyle = `
     .bg-pattern {
@@ -32,6 +34,7 @@ export default function HomePage() {
     const [showSubscription, setShowSubscription] = useState(false)
     const [showSuccess, setShowSuccess] = useState(false)
     const [isPremium, setIsPremium] = useState(false)
+    const { resolvedTheme, setTheme } = useTheme()
 
     const handleCalculation = () => {
         if (!isPremium) {
@@ -56,7 +59,16 @@ export default function HomePage() {
 
     return (
         <>
-            <div className="fixed top-0 left-0 right-0 p-4 z-20 flex justify-end gap-4">
+            <div className="fixed top-0 left-0 right-0 p-4 z-20 flex items-center justify-end gap-4">
+                <Button
+                    variant="outline"
+                    size="icon-lg"
+                    className="relative"
+                    onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+                >
+                    <Sun className="opacity-0 absolute dark:opacity-100 rotate-90 dark:rotate-0 transition-all duration-300" />
+                    <Moon className="opacity-100 dark:opacity-0 rotate-0 dark:rotate-90 transition-all duration-300" />
+                </Button>
                 <a href="https://www.instagram.com/its.bradn" title="Instagram" className="hover:text-primary text-muted-foreground transition-colors">
                     <Instagram />
                     <span className="sr-only">Instagram</span>
@@ -68,12 +80,12 @@ export default function HomePage() {
             </div>
 
             <div className="bg-pattern" />
-            {/* 👇 Inyectamos el CSS */}
+            {/* Inyectamos el CSS */}
             <style>{backgroundStyle}</style>
             <div 
                 className="min-h-screen bg-background flex items-center justify-center p-4 relative z-10"
                 style={{
-                    background: "radial-gradient(circle at center, color-mix(in oklch, var(--primary) 30%, transparent), #000000)"
+                    background: "radial-gradient(circle at center, color-mix(in oklch, var(--primary) 30%, transparent), var(--background))"
                 }}
             >
 
@@ -118,14 +130,10 @@ export default function HomePage() {
                     <Calculator onCalculate={handleCalculation} isPremium={isPremium} />
                 </motion.div>
 
-                <AnimatePresence>{isLoading && <LoadingModal />}</AnimatePresence>
+                <LoadingModal open={isLoading} setOpen={setIsLoading} />
 
                 {/* Subscription detail modal */}
-                <AnimatePresence>
-                    {showSubscription && (
-                        <SubscriptionModal onClose={() => setShowSubscription(false)} onSuccess={handleSubscriptionSuccess} />
-                    )}
-                </AnimatePresence>
+                <SubscriptionModal open={showSubscription} setOpen={setShowSubscription} onSuccess={handleSubscriptionSuccess} />
 
                 {/* Success Payment */}
                 <AnimatePresence>

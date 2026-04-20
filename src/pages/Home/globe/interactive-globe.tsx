@@ -8,7 +8,7 @@
 // https://github.com/martynafford/natural-earth-geojson
 // non-geojson datasets: https://www.naturalearthdata.com/downloads/
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, memo } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls, Stars } from "@react-three/drei";
 import * as THREE from "three";
@@ -26,7 +26,7 @@ function Globe() {
         if (!group) return;
 
         // 🌐 Borde del globo
-        const geometry = new THREE.SphereGeometry(1.99, 128, 128);
+        const geometry = new THREE.SphereGeometry(1.99, 32, 32) // o incluso 32
         const lineMat = new THREE.LineBasicMaterial({
             color: 0xffffff,
             transparent: true,
@@ -99,7 +99,7 @@ function Globe() {
     return <group ref={groupRef} />;
 }
 
-export default function GlobeScene() {
+const GlobeScene = memo(function GlobeScene() {
 
     return (
         <div className="w-full h-full bg-black rounded-lg overflow-hidden">
@@ -121,8 +121,10 @@ export default function GlobeScene() {
                 <Globe />
 
                 {/* Estrellas extra opcionales */}
-                <Stars radius={100} depth={50} count={2000} factor={4} saturation={0} fade />
+                <Stars radius={100} depth={50} count={800} factor={4} saturation={0} fade />
             </Canvas>
         </div>
     );
-}
+});
+
+export default GlobeScene;
