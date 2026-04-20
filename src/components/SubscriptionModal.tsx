@@ -32,11 +32,11 @@ export function SubscriptionModal({ open, setOpen, onSuccess }: SubscriptionModa
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogContent className="w-full max-w-4xl! p-0 overflow-hidden">
+            <DialogContent className="w-full max-w-4xl! p-0 overflow-hidden bg-transparent">
                 <ScrollArea className="max-h-[90vh]">
-                    <div className="z-50 flex flex-col md:flex-row relative">
+                    <div className="z-50 flex flex-col md:flex-row relative dark">
                         {/* Header with gradient */}
-                        <div className="relative bg-gradient-to-br from-primary/20 via-accent/10 to-transparent p-8 border-b border-border md:border-r md:border-b-0">
+                        <div className="relative bg-gradient-to-br from-primary/30 via-black/50 to-black/50 p-8 border-b border-border md:border-b-0">
                             <motion.div
                                 initial={{ scale: 0 }}
                                 animate={{ scale: 1 }}
@@ -62,7 +62,7 @@ export function SubscriptionModal({ open, setOpen, onSuccess }: SubscriptionModa
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: 0.3 + index * 0.1 }}
-                                        className="flex flex-col items-center text-center p-4 rounded-xl bg-muted/50 border border-border"
+                                        className="flex flex-col items-center text-center p-4 rounded-xl bg-muted/50 border border-border backdrop-blur-xs"
                                     >
                                         <feature.icon className="h-6 w-6 text-primary mb-2" />
                                         <h3 className="font-semibold text-sm text-foreground mb-1">{feature.title}</h3>
@@ -76,7 +76,7 @@ export function SubscriptionModal({ open, setOpen, onSuccess }: SubscriptionModa
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.6 }}
-                                className="bg-gradient-to-br from-primary/10 to-accent/5 rounded-xl p-6 border border-primary/20 mb-8"
+                                className="bg-gradient-to-br from-primary/10 to-accent/5 rounded-xl p-6 border border-primary/20 mb-8 backdrop-blur-xs"
                             >
                                 <div className="flex items-baseline gap-2 mb-2">
                                     <span className="text-5xl font-bold text-foreground">$99</span>
@@ -86,7 +86,7 @@ export function SubscriptionModal({ open, setOpen, onSuccess }: SubscriptionModa
                             </motion.div>
                         </div>
 
-                        <div className="flex flex-col justify-between p-8 md:pt-12">
+                        <div className="flex flex-col justify-between p-8 md:pt-12 bg-transparent md:border-l backdrop-blur-xs">
                             {/* Payment Form */}
                             <motion.form
                                 initial={{ opacity: 0, y: 20 }}
@@ -202,7 +202,7 @@ export function SubscriptionModal({ open, setOpen, onSuccess }: SubscriptionModa
                             </motion.div>
                         </div>
                     </div>
-                    <div className="absolute inset-0 z-0 opacity-60">
+                    <div className="absolute inset-0 z-0 opacity-100">
                         <GlobeScene />
                         <div
                             className="absolute inset-0 pointer-events-none bg-[linear-gradient(to_bottom,transparent_90%,var(--background)_100%)] flex md:hidden"
